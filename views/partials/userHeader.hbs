@@ -1,0 +1,186 @@
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Fav and touch icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/ico/apple-touch-icon-144-precomposed.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/ico/apple-touch-icon-114-precomposed.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/ico/apple-touch-icon-72-precomposed.png" />
+  <link rel="apple-touch-icon-precomposed" href="/ico/apple-touch-icon-57-precomposed.html" />
+  <link rel="shortcut icon" href="/assets/ico/favicon.png" />
+  <title>GSHOP</title>
+  <!-- Bootstrap core CSS -->
+  <link href="/assets/bootstrap/css/bootstrap.css" rel="stylesheet" />
+
+  <!-- Custom styles for this template -->
+  <link href="/assets/css/style.css" rel="stylesheet" />
+
+  <script>
+    paceOptions = { elements: true, };
+  </script>
+  <script src="/assets/js/pace.min.js"></script>
+
+  <!-- add theme styles for this template -->
+  <link id="pagestyle" rel="stylesheet" type="text/css" href="/assets/css/skin-1.css" />
+  <link rel="stylesheet" type="text/css" href="/assets/css/gray-look.css" />
+
+  {{!-- sweet alert script --}}
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <!-- styles needed by footable  -->
+  <link href="assets/css/footable-0.1.css" rel="stylesheet" type="text/css" />
+  <link href="assets/css/footable.sortable-0.1.css" rel="stylesheet" type="text/css" />
+
+  <!-- styles needed by smoothproducts.js for product zoom  -->
+  <link rel="stylesheet" href="assets/plugins/smoothproducts-master/css/smoothproducts.css">
+
+
+</head>
+
+<body>
+
+  <!-- Fixed navbar start -->
+  <div class="navbar navbar-tshop navbar-fixed-top megamenu" role="navigation">
+    <div class="navbar-top">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 col-sm-6 col-xs-6 col-md-6" style="visibility: hidden">
+          </div>
+          {{#if currentUser}}
+          <div class="col-lg-6 col-sm-6 col-xs-6 col-md-6 no-margin no-padding">
+            <div class="pull-right">
+              <ul class="userMenu">
+                <li><a href="/account"><span class="hidden-xs"> Tài khoản</span> <i
+                      class="glyphicon glyphicon-user hide visible-xs "></i></a></li>
+
+
+                <li class="dropdown hasUserMenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                    aria-expanded="false"> <i class="glyphicon glyphicon-log-in hide visible-xs "></i> Chào
+                    {{currentUser.username}} <b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="/account"> <i class="w-12 fa fa-user"></i> Tài khoản</a></li>
+                    {{!-- <li><a href="/account"><i class="fa fa fa-cog"></i> Profile</a></li> --}}
+                    <li><a href="/account/myAddress"><i class="w-12 fa fa-map-marker"></i> Địa chỉ</a></li>
+                    <li><a href="/account/orderList"><i class="fa fa-calendar"></i> Đơn hàng</a></li>
+                    {{!-- <li><a href="wishlist.html" title="My wishlists"> --}}
+                        {{!-- <i class="fa fa-heart"></i>
+                        My wishlists
+                      </a></li> --}}
+                    <li class="divider"></li>
+                    <li>
+                      <form action="/logout" method="POST"><i class="fa fa-sign-out w-12"></i><button type="submit">Đăng
+                          xuất</button></form>
+                    </li>
+                  </ul>
+                </li>
+
+              </ul>
+            </div>
+          </div>
+          {{else}}
+          <div class="col-lg-6 col-sm-6 col-xs-6 col-md-6 no-margin no-padding">
+            <div class="pull-right">
+              <ul class="userMenu">
+                <li>
+                  <a href="/signupLoginPage">
+                    <span class="hidden-xs">Đăng Nhập</span>
+                    <i class="glyphicon glyphicon-log-in hide visible-xs"></i>
+                  </a>
+                </li>
+                <li class="hidden-xs">
+                  <a href="/signupLoginPage" data-toggle="modal">
+                    Đăng Ký
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+    <!--/.navbar-top-->
+
+    <div class="container">
+      <div class="navbar-header">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+          <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+            <img src="/images/logo.png" alt="LF-Kart" style="width: 115px; height: 50px" />
+          </a>
+          <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+            <li><a href="/shop" class="nav-link px-2 text-white">Cửa Hàng</a></li>
+          </ul>
+
+
+          {{#if cartData}}
+          {{#if (equal (arrayLength cartData) 0 )}}
+          {{else}}
+          <div class="navbar-collapse collapse" style="position:absolute;right:0">
+            <div class="nav navbar-nav navbar-right hidden-xs">
+              <div class="dropdown cartMenu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-shopping-cart"> </i>
+                  <span class="cartRespons"> Giỏ hàng</span>
+                  <b class="caret"> </b>
+                </a>
+
+                <div class="dropdown-menu col-lg-4 col-xs-12 col-md-4" style="width:500px">
+                  <div class="w100 miniCartTable scroll-pane">
+                    <table>
+                      <tbody>
+                        {{#each cartData}}
+                        <tr class="miniCartProduct">
+                          <td style="width: 30%" class="miniCartProductThumb">
+                            <div>
+                              <a href="/productDetails/{{this.productId._id}}">
+                                <img src="{{this.productId.productImage1}}" alt="img" />
+                              </a>
+                            </div>
+                          </td>
+                          <td style="width: 40%">
+                            <div class="miniCartDescription">
+                              <h4>
+                                <a href="/productDetails/{{this.productId._id}}">
+                                  {{this.productId.productName}}
+                                </a>
+                              </h4>
+                              <div class="price"><span> {{this.productId.productPrice}}Đ </span></div>
+                            </div>
+                          </td>
+                          <td style="width: 15%" class="miniCartQuantity">
+                            <a> X {{this.productQuantity}} </a>
+                          </td>
+                          <td style="width: 15%" class="miniCartSubtotal">
+                            <span> {{this.totalCostPerProduct}}Đ </span>
+                          </td>
+                        </tr>
+                        {{/each}}
+                      </tbody>
+                    </table>
+                  </div>
+                  <!--/.miniCartTable-->
+
+                  <div class="miniCartFooter text-right">
+                    <a class="btn btn-sm btn-danger" href="/cart">
+                      <i class="fa fa-shopping-cart"> </i>
+                      XEM GIỎ HÀNG
+                    </a><a class="btn btn-sm btn-primary" href="/checkout"> ĐẶT HÀNG </a>
+                  </div>
+                  <!--/.miniCartFooter-->
+                </div>
+                <!--/.dropdown-menu-->
+              </div>
+              <!--/.cartMenu-->
+            </div>
+            <!--/.navbar-nav hidden-xs-->
+          </div>
+          {{/if}}
+          {{/if}}
+        </div>
+      </div>
+      <!--/.nav-collapse -->
+    </div>
+    <!--/.container -->
+  </div>
+  <!-- /.Fixed navbar  -->

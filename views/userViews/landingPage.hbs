@@ -1,0 +1,85 @@
+{{> userHeader}}
+
+  <div class="container mt-10">
+    <div class="featuredImageLook3 row featuredPostContainer">
+      <h3 class="section-title style2 text-center">
+        <span>CÁC LOẠI HÀNG</span>
+      </h3>
+      {{#each categoryData}}
+      <div class="col-md-3 col-sm-6 col-xs-6 col-xs-min-12">
+        <div class="inner">
+          <div class="box-content-overly box-content-overly-white">
+            <div class="box-text-table">
+              <div class="box-text-cell">
+                <div class="box-text-cell-inner dark">
+                  <h1 class="uppercase">{{this.categoryDescription}}</h1>
+                  <hr class="submini" />
+                  <a href="/shop/filter/category/{{this.categoryName}}" class="btn btn-inverse">MUA HÀNG NGAY</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--/.box-content-overly -->
+          <div class="img-title">{{this.categoryName}}</div>
+          <a class="img-block" href="/shop">
+            <svg width="500" height="250">
+              <rect style="fill:#000000" width="500" height="250" x="0" y="0" />
+            </svg>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+    <!--/.featuredImageLook3-->
+  </div>
+  <!--/.featuredPostContainer-->
+
+  <div class="container main-container">
+    <!-- Main component call to action -->
+
+    <div class="row featuredPostContainer globalPadding style2">
+      <h3 class="section-title style2 text-center">
+        <span>SẢN PHẨM</span>
+      </h3>
+
+      <div id="productslider" class="owl-carousel owl-theme">
+        {{#each productData}}
+        <div class="item">
+          <div class="product">
+            <div class="image">
+              <a href="/productDetails/{{this._id}}"><img src="{{this.productImage1}}" alt="img"
+                  class="img-responsive" /></a>
+              {{#if (equal this.productStock 0)}}
+              <div class="promotion">
+                <span class="discount">HẾT HÀNG!</span>
+              </div>
+              {{/if}}
+            </div>
+            <div class="description">
+              <h4>
+                <a href="/productDetails/{{this._id}}">{{this.productName}}</a>
+              </h4>
+            </div>
+            <div class="price"><span>{{this.productPrice}}đ</span></div>
+          </div>
+        </div>
+        {{/each}}
+      </div>
+      <!--/.productslider-->
+    </div>
+    <!--/.featuredPostContainer-->
+  </div>
+  <!--/.parallax-section-->
+
+  <!-- Product Details Modal  -->
+  <!-- Modal -->
+  <div class="modal fade" id="productSetailsModalAjax" tabindex="-1" role="dialog"
+    aria-labelledby="productSetailsModalAjaxLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content"></div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+  <!-- End Modal -->
+{{> userFooter}}

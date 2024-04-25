@@ -1,0 +1,82 @@
+{{> userHeader}}
+
+  <div class="container main-container headerOffset">
+    <div class="row">
+      <div class="breadcrumbDiv col-lg-12">
+        <ul class="breadcrumb">
+          <li><a href="/">Trang chủ</a></li>
+          <li><a href="/account">Tài khoản của tôi</a></li>
+          <li class="active">Sửa địa chỉ</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-9 col-md-9 col-sm-7">
+        <h1 class="section-title-inner">
+          <span><i class="fa fa-map-marker"></i> Sửa địa chỉ của bạn</span>
+        </h1>
+        <div class="row userInfo">
+          <div class="col-lg-12 col-xs-12">
+            <h2 class="block-title-2">
+              Để chỉnh sửa địa chỉ hiện tại, vui lòng điền vào biểu mẫu dưới đây.
+            </h2>
+            <p class="required"><sup>*</sup> Trường bắt buộc</p>
+          </div>
+          <form action="/account/editAddress/{{existingAddress._id}}" method="POST">
+            <div class="col-xs-12 col-sm-6">
+              <div class="form-group required">
+                <label for="InputName">Tên<sup>*</sup> </label>
+                <input required name="firstName" type="text" class="form-control" id="InputName"
+                  value="{{existingAddress.firstName}}" />
+              </div>
+              <div class="form-group required">
+                <label for="InputLastName">Họ <sup>*</sup> </label>
+                <input required name="lastName" type="text" class="form-control" id="InputLastName"
+                  value="{{existingAddress.lastName}}" />
+              </div>
+              <div class="form-group required">
+                <label for="InputAddress">Địa chỉ 1 <sup>*</sup> </label>
+                <input required name="addressLine1" type="text" class="form-control" id="InputAddress"
+                  value= "{{existingAddress.addressLine1}}" />
+              </div>
+              <div class="form-group">
+                <label for="InputAddress2">Địa chỉ 2  <sup>*</sup> </label>
+                <input required name="addressLine2" type="text" class="form-control" id="InputAddress2" value="{{existingAddress.addressLine2}}"  />
+              </div>
+              <div class="form-group">
+                <label for="phone">Số điện thoại<sup>*</sup> </label>
+                <input required name="phone" type="text" class="form-control" id="phone" value="{{existingAddress.phone}}"  />
+              </div>
+              <div class="form-group required">
+                <label for="addressAlias">Vui lòng đặt tên cho địa chỉ này
+                  <sup>*</sup></label>
+                <input required type="text" value="{{existingAddress.addressTitle}}"  name="addressTitle" class="form-control"
+                  id="addressAlias" />
+              </div>
+            </div>
+            <div class="col-lg-12 col-xs-12 clearfix">
+              <button type="submit" class="btn btn-primary">
+                <i class="fa fa-map-marker"></i> Lưu địa chỉ
+              </button>
+            </div>
+          </form>
+          <div class="col-lg-12 col-xs-12 clearfix">
+            <ul class="pager">
+              <li class="previous pull-right">
+                <a href="/">
+                  <i class="fa fa-home"></i> Trờ về cửa hàng
+                </a>
+              </li>
+              <li class="next pull-left">
+                <a href="/account/myAddress">&larr; Trở về địa chỉ của tôi</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-5"></div>
+    </div>
+  </div>
+
+{{> userFooter}}

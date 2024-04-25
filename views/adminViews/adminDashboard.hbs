@@ -1,0 +1,96 @@
+{{> adminHeader}}
+
+<div class="container">
+    <nav class="navbar navbar-expand-lg bg-info bg-primary">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03"
+                aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand fw-bold" href="/admin"><img src="/images/logo-dark.png" alt="LFKart"></a>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item fw-bold">
+                        <a class="nav-link" aria-current="page" href="/admin/userManagement">Người dùng</a>
+                    </li>
+                    <li class="nav-item fw-bold">
+                        <a class="nav-link" aria-current="page" href="/admin/categoryManagement">Loại hàng</a>
+                    </li>
+                    <li class="nav-item fw-bold">
+                        <a class="nav-link" aria-current="page" href="/admin/productManagement">Sản phẩm</a>
+                    </li>
+                    <li class="nav-item fw-bold">
+                        <a class="nav-link" aria-current="page" href="/admin/orderManagement">Đơn hàng</a>
+                    </li>
+                </ul>
+                <form action="/admin/logout" method="post" class="d-flex">
+                    <button class="btn btn-danger" type="submit">Đăng xuất</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <div class="pt-3">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="card text-dark bg-info mb-3" style="max-width: 18rem;">
+                    <div class="card-header">Số lượng sản phẩm</div>
+                    <div class="card-body d-flex">
+                        <h5 id="productsCount" class="card-title"></h5>
+                        <h6 id="categoryCount" class="card-title" style="margin-left: 5px;margin-top: 3.8px;"></h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card text-dark bg-info mb-3" style="max-width: 18rem;">
+                    <div class="card-header">Đơn hàng đã hoàn thành</div>
+                    <div class="card-body">
+                        <h5 id="completedOrdersCount" class="card-title"></h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card text-dark bg-info mb-3" style="max-width: 18rem;">
+                    <div class="card-header">Đơn hàng đang đợi</div>
+                    <div class="card-body">
+                        <h5 id="pendingOrdersCount" class="card-title"></h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card text-dark bg-info mb-3" style="max-width: 18rem;">
+                    <div class="card-header">Doanh thu hôm nay</div>
+                    <div class="card-body">
+                        <h5 id="currentDayRevenue" class="card-title"></h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<allScripts>
+    <script>
+        const fetchData = (async () => {
+            try {
+                const response = await fetch('/admin/dashboardData', { method: 'GET' });
+                const data = await response.json();
+                const {
+                    productsCount,
+                    categoryCount,
+                    pendingOrdersCount,
+                    completedOrdersCount,
+                    currentDayRevenue,
+                } = data
+                document.getElementById('productsCount').innerText = productsCount
+                document.getElementById('categoryCount').innerText = 'trong ' + categoryCount + ' loại hàng'
+                document.getElementById('pendingOrdersCount').innerText = pendingOrdersCount
+                document.getElementById('completedOrdersCount').innerText = completedOrdersCount
+                document.getElementById('currentDayRevenue').innerText = currentDayRevenue + "đ"
+            } catch (error) {
+                console.error(error)
+            }
+        })();
+    </script>
+
+</allScripts>

@@ -1,0 +1,131 @@
+{{> adminHeader}}
+
+    <div class="container">
+        <nav class="navbar navbar-expand-lg bg-info bg-primary">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03"
+                aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand fw-bold" href="/admin"><img src="/images/logo-dark.png" alt="LFKart"></a>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item fw-bold">
+                        <a class="nav-link" aria-current="page" href="/admin/userManagement">Người dùng</a>
+                    </li>
+                    <li class="nav-item fw-bold">
+                        <a class="nav-link" aria-current="page" href="/admin/categoryManagement">Loại hàng</a>
+                    </li>
+                    <li class="nav-item fw-bold">
+                        <a class="nav-link" aria-current="page" href="/admin/productManagement">Sản phẩm</a>
+                    </li>
+                    <li class="nav-item fw-bold">
+                        <a class="nav-link active" aria-current="page" href="/admin/orderManagement">Đơn hàng</a>
+                    </li>
+                </ul>
+                <form action="logout" method="post" class="d-flex">
+                    <button class="btn btn-danger" type="submit">Đăng xuất</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <div class="p-3">
+        <h1><strong>ORDER STATUS</strong></h1>
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-6">
+                    <p><strong>Order Number:</strong> #{{orderData.orderNumber}}</p>
+                    <div class="card text-dark bg-info  mb-3" style="max-width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{orderData.orderStatus}}</h5>
+                        </div>
+                    </div>
+                    <span>
+                        <p><strong>Status:</strong></p>
+                        <h5>{{orderData.orderStatus}}</h5>
+                    </span>
+                    <p><strong>Order Date:</strong> {{orderData.orderDate}}</p>
+                </div>
+                <div class="col-6 ">
+                    <div class="card bg-light mb-3" style="max-width: 18rem;">
+                        <div class="card-header">Address</div>
+                        <div class="card-body">
+                            <h5 class="card-title">{{orderData.addressChosen.addressTitle}}</h5>
+                            <p class="card-text">{{orderData.addressChosen.addressLine1}} <br />
+                                {{orderData.addressChosen.addressLine2}} <br /> Phone:
+                                {{orderData.addressChosen.phone}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row p-3">
+                <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
+                    <div class="card-header">Payment</div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{orderData.grandTotalCost}}đ</h5>
+                    </div>
+                </div>
+            </div>
+            <h5>Product details:</h5>
+            <div class="row p-3">
+                <table id="orderStatus" class="table">
+                    <thead>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </thead>
+                    <tbody>
+                        {{#each orderData.cartData}}
+                        <tr>
+                            <td>
+                                <div><a href=""><img style="height: 100px; width: 100px;"
+                                            src="{{this.productId.productImage1}}" alt=""></a>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <h4>{{this.productId.productName}}</h4>
+                                    <div><span>{{this.productId.productPrice}}đ</span></div>
+                                </div>
+                            </td>
+                            <td> X &nbsp; {{this.productQuantity}}</td>
+                            <td> <span>
+                                    <h4>{{this.totalCostPerProduct}}đ</h4>
+                                </span></td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        </div>
+    </div>
+
+
+
+
+<allScripts>
+
+    <script>
+        $(document).ready(function () {
+            $(' orderStatus').{
+                        "language": {
+                            "lengthMenu": "Hiễn thị _MENU_ hàng mỗi trang",
+                            "zeroRecords": "Không có dữ liệu",
+                            "info": "Hiển thị _PAGE_ trên _PAGES_ trang",
+                            "infoEmpty": "Không có dữ liệu",
+                            "infoFiltered": "(filtered from _MAX_ total records)",
+                            "oPaginate": {
+                                "sFirst": "Đầu tiên",
+                                "sLast": "Cuối cùng",
+                                "sNext": "Kế tiếp",
+                                "sPrevious": "Trước"
+                            },
+                            "sSearch": "Tìm kiếm:",
+                        }
+                    };
+        });
+    </script>
+
+</allScripts>
